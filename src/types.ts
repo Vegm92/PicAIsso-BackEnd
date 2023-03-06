@@ -1,1 +1,12 @@
-const a = 0;
+export interface UserCredentials {
+  username: string;
+  password: string;
+}
+
+export interface UserStructure extends UserCredentials {
+  email: string;
+}
+export interface UserRegisterCredentials extends UserStructure {
+  avatar?: string;
+  passwordConfirmation: string;
+}

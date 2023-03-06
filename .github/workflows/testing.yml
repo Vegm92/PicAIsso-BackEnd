@@ -1,18 +1,18 @@
-# name: Testing
+name: Testing
 
-# on: push
+on: push
 
-# jobs:
-#   test:
-#     name: Tests passes
-#     runs-on: ubuntu-latest
+jobs:
+  test:
+    name: Tests passes
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: ⬇ Git checkout
-#         uses: actions/checkout@v3
+    steps:
+      - name: ⬇ Git checkout
+        uses: actions/checkout@v3
 
-#       - name: 💾 Install modules
-#         run: npm ci
+      - name: 💾 Install modules
+        run: npm ci
 
-#       - name: 🧪 Testing
-#         run: npm test
+      - name: 🧪 Testing
+        run: npm test
