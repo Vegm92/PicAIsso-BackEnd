@@ -7,6 +7,5 @@ export interface UserStructure extends UserCredentials {
   email: string;
 }
 export interface UserRegisterCredentials extends UserStructure {
-  avatar?: string;
   passwordConfirmation: string;
 }

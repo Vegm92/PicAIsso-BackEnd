@@ -1,6 +1,7 @@
 import type cors from "cors";
 
-const allowedOrigins = ["http://localhost:4000"];
+const localHost = "http://localhost:4000";
+const allowedOrigins = [localHost];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
