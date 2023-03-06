@@ -1,8 +1,8 @@
 import "./loadEnvironment.js";
-import createDebug from "debug";
-import startServer from "./server/startServer.js";
 import chalk from "chalk";
 import mongoose from "mongoose";
+import createDebug from "debug";
+import startServer from "./server/startServer.js";
 import connectDataBase from "./database/connectDataBase.js";
 
 export const debug = createDebug("PicAIsso-server:*");
