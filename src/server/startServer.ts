@@ -1,6 +1,6 @@
 import createDebug from "debug";
+import type CustomError from "../CustomError/CustomError.js";
 import { app } from "./index.js";
-import { type CustomError } from "../CustomError/CustomError.js";
 
 const debug = createDebug("picAIsso:startServer");
 

@@ -5,7 +5,7 @@ import createDebug from "debug";
 import startServer from "./server/startServer.js";
 import connectDataBase from "./database/connectDataBase.js";
 
-export const debug = createDebug("PicAIsso-server:*");
+export const debug = createDebug("picaisso:startServer");
 
 const port = process.env.PORT ?? 4000;
 const mongoDbUrl = process.env.MONGODB_CONNECTION_URL!;
