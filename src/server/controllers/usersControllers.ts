@@ -5,10 +5,10 @@ import {
   type Request,
   type Response,
 } from "express-serve-static-core";
-import { CustomError } from "../../CustomError/CustomError";
+import { type UserCredentials } from "../../types.js";
+import { type CustomJwtPayload } from "./types.js";
+import CustomError from "../../CustomError/CustomError";
 import User from "../../database/models/User";
-import { type UserCredentials } from "../../types";
-import { type CustomJwtPayload } from "./types";
 
 const hashingPasswordLength = 10;
 
