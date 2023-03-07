@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import options from "../cors.js";
 import { generalError } from "./middlewares/generalError/generalError.js";
-import { notFoundError } from "./middlewares/notFoundError/notFoundError.js";
+import { notFoundError } from "./middlewares/norFoundError/notFoundError.js";
 
 import usersRouter from "./routers/usersRouters/usersRouters.js";
 
