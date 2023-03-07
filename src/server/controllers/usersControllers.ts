@@ -7,8 +7,8 @@ import {
 } from "express-serve-static-core";
 import { type UserCredentials } from "../../types.js";
 import { type CustomJwtPayload } from "./types.js";
-import CustomError from "../../CustomError/CustomError";
-import User from "../../database/models/User";
+import User from "../../database/models/User.js";
+import CustomError from "../../CustomError/CustomError.js";
 
 const hashingPasswordLength = 10;
 
