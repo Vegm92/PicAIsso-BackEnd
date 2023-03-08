@@ -2,7 +2,7 @@ import "./loadEnvironment.js";
 import type cors from "cors";
 
 const localHost = [
-  "http://localhost:4000",
+  `${process.env.LOCAL_HOST!}`,
   `${process.env.DEPLOY_ORIGIN_URL!}`,
 ];
 

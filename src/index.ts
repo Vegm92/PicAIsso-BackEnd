@@ -5,7 +5,7 @@ import createDebug from "debug";
 import startServer from "./server/startServer.js";
 import connectDataBase from "./database/connectDataBase.js";
 
-export const debug = createDebug("picaisso:startServer");
+const debug = createDebug("picaisso:startServer");
 
 const port = process.env.PORT ?? 4000;
 const mongoDbUrl = process.env.MONGODB_CONNECTION_URL!;
@@ -23,7 +23,7 @@ try {
   debug(chalk.green("Connected to data base"));
 
   await startServer(+port);
-  debug(chalk.green(`Server listening on port ${port}`));
+  debug(chalk.green(`Server listening on 'http://localhost:${port}'`));
 } catch (error) {
-  debug(error.message);
+  debug(chalk.bgRed(error.message));
 }

@@ -61,7 +61,7 @@ describe("Given a POST '/users/login' endpoint", () => {
       await User.create({ ...mockUser, email: "vic@gmail.com" });
     });
     test("Then it should respond a code status 401 and with an error message 'Wrong credentials'", async () => {
-      const expectedMessage = "Wrong credentials";
+      const expectedMessage = "Unauthorized: User not found.";
       const expectedStatusCode = 401;
       const mockVictor: UserCredentials = {
         username: "Victor",
