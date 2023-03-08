@@ -9,6 +9,7 @@ import { type UserCredentials } from "../../types.js";
 import { type CustomJwtPayload } from "./types.js";
 import User from "../../database/models/User.js";
 import CustomError from "../../CustomError/CustomError.js";
+import errors from "../../constants/errors.js";
 
 const hashingPasswordLength = 10;
 
@@ -30,11 +31,10 @@ export const loginUser = async (
 
     if (!user) {
       const error = new CustomError(
-        "Wrong credentials",
-        401,
-        "Wrong credentials"
+        errors.unauthorized.message,
+        errors.unauthorized.statusCode,
+        errors.unauthorized.publicMessage
       );
-
       next(error);
 
       return;
@@ -42,9 +42,9 @@ export const loginUser = async (
 
     if (!(await bcrypt.compare(password, user.password))) {
       const error = new CustomError(
-        "Wrong credentials",
-        401,
-        "Wrong credentials"
+        errors.unauthorized.message,
+        errors.unauthorized.statusCode,
+        errors.unauthorized.publicMessage
       );
 
       next(error);
@@ -57,9 +57,7 @@ export const loginUser = async (
       username: user.username,
     };
 
-    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {
-      expiresIn: "2d",
-    });
+    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!);
 
     res.status(200).json({ token });
   } catch (error) {

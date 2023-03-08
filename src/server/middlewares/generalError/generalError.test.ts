@@ -1,11 +1,12 @@
 import { type NextFunction, type Request, type Response } from "express";
+import { ValidationError, type errors } from "express-validation";
 import CustomError from "../../../CustomError/CustomError";
 import { generalError } from "./generalError";
-const res = {
+const res: Partial<Response> = {
   status: jest.fn().mockReturnThis(),
   json: jest.fn(),
-} as Partial<Response>;
-const req = {} as Request;
+};
+const req: Partial<Request> = {};
 const next = jest.fn() as NextFunction;
 
 beforeEach(() => jest.clearAllMocks());
@@ -20,9 +21,46 @@ describe("Given a generalError middleware", () => {
         "Somethig went wrong"
       );
 
-      generalError(error, req, res as Response, next);
+      generalError(error, req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
+    });
+  });
+
+  describe("When it receives an error object generated due to missing password in credentials", () => {
+    test("Then the erro public message will be '\"password\" is required'", () => {
+      const error: errors = {
+        body: [
+          {
+            name: "ValidationError",
+            isJoi: true,
+            annotate(stripColors) {
+              return "";
+            },
+            _original: "",
+            message: "'password' is required",
+            details: [
+              {
+                message: "",
+                path: [""],
+                type: "",
+              },
+            ],
+          },
+        ],
+      };
+
+      const publicMessage = "'password' is required";
+      const newError = new ValidationError(error, {});
+
+      generalError(
+        newError as unknown as CustomError,
+        req as Request,
+        res as Response,
+        next
+      );
+
+      expect(res.json).toHaveBeenCalledWith({ error: publicMessage });
     });
   });
 });
