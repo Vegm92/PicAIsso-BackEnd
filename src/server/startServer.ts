@@ -10,13 +10,11 @@ const startServer = async (port: number) =>
       resolve(server);
     });
     server.on("error", (error: CustomError) => {
-      const errorMessage = "Error on starting the server";
-
       if (error.code === "EADDRINUSE") {
-        debug(errorMessage, `The port number ${port} is already in use`);
+        error.message = `The port number ${port} is already in use`;
       }
 
-      reject(new Error(errorMessage));
+      reject(new Error(error.message));
     });
   });
 

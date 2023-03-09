@@ -16,7 +16,6 @@ export const generalError = (
   }
 
   debug(error.message);
-  debug(error.publicMessage);
 
   const statusCode = error.statusCode || 500;
   const publicMessage = error.publicMessage || "Something went wrong";
