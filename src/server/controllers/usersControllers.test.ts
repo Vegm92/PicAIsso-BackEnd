@@ -24,7 +24,7 @@ describe("Given a loginUser controller", () => {
     password: "C.Dots",
   };
 
-  describe("When it receives a request with a username 'Kent' and password 'Cdots' and the user is not registered in the database", () => {
+  describe("When it receives a request with a username 'Kent' and password 'C.Dots' and the user is not registered in the database", () => {
     test("Then it should call its next method with a status code 401 and the message 'Wrong credentials'", async () => {
       const expectedError = new CustomError(
         "Unauthorized: User or password not found.",

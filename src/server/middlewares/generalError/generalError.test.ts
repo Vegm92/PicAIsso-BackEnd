@@ -13,7 +13,7 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("Given a generalError middleware", () => {
   describe("When it receives an error with status 500", () => {
-    test("Then it shoudl call its status method with a 500", () => {
+    test("Then it should call its status method with a 500", () => {
       const statusCode = 500;
       const error = new CustomError(
         "There was an error",
@@ -25,10 +25,19 @@ describe("Given a generalError middleware", () => {
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
     });
+
+    test("Then it should call its json method with an error 'Something went wrong'", () => {
+      const publicMessage = { error: "Something went wrong" };
+      const error = new Error();
+
+      generalError(error as CustomError, req as Request, res as Response, next);
+
+      expect(res.json).toHaveBeenCalledWith(publicMessage);
+    });
   });
 
   describe("When it receives an error object generated due to missing password in credentials", () => {
-    test("Then the erro public message will be '\"password\" is required'", () => {
+    test("Then the error public message will be 'password' is required'", () => {
       const error: errors = {
         body: [
           {
