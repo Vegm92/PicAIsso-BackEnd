@@ -35,9 +35,7 @@ export const loginUser = async (
         errors.unauthorized.statusCode,
         errors.unauthorized.publicMessage
       );
-      next(error);
-
-      return;
+      throw error;
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
@@ -47,9 +45,7 @@ export const loginUser = async (
         errors.unauthorized.publicMessage
       );
 
-      next(error);
-
-      return;
+      throw error;
     }
 
     const jwtPayload: CustomJwtPayload = {

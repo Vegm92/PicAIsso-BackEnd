@@ -72,4 +72,17 @@ describe("Given a generalError middleware", () => {
       expect(res.json).toHaveBeenCalledWith({ error: publicMessage });
     });
   });
+
+  describe("When it receives an error without statusCode nor publicMessage", () => {
+    test("Then it should call its status method with a 500 and its json method with 'Something went wrong'", () => {
+      const error = new CustomError("", 0, "");
+      const expectedStatusCode = 500;
+      const expectedMessage = { error: "Something went wrong" };
+
+      generalError(error, req as Request, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+  });
 });
