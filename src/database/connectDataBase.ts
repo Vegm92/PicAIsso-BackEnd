@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import errors from "../constants/errors";
+import errors from "../constants/errors.js";
 
 const connectDataBase = async (url: string) => {
   mongoose.set("strictQuery", false);
