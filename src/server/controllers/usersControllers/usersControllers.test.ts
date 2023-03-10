@@ -2,10 +2,10 @@ import { type Response, type Request, type NextFunction } from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { type UserCredentials } from "../../types";
-import User from "../../database/models/User";
+import { type UserCredentials } from "../../../types";
+import User from "../../../database/models/User";
 import { loginUser } from "./usersControllers";
-import CustomError from "../../CustomError/CustomError";
+import CustomError from "../../../CustomError/CustomError";
 
 const req: Partial<Request> = {};
 
