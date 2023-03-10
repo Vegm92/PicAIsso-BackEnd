@@ -22,12 +22,10 @@ export const loginUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { password, username } = req.body;
-
-  const userToFind = username.toString();
+  const { password, email } = req.body;
 
   try {
-    const user = await User.findOne({ username: userToFind }).exec();
+    const user = await User.findOne({ email }).exec();
 
     if (!user) {
       const error = new CustomError(
@@ -53,7 +51,9 @@ export const loginUser = async (
       username: user.username,
     };
 
-    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!);
+    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, {
+      expiresIn: "3d",
+    });
 
     res.status(200).json({ token });
   } catch (error) {

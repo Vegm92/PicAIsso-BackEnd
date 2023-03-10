@@ -1,11 +1,10 @@
-export interface UserCredentials {
+export interface UserStructure {
   username: string;
   password: string;
-}
-
-export interface UserStructure extends UserCredentials {
   email: string;
 }
+
+export type UserCredentials = Pick<UserStructure, "email" | "password">;
 export interface UserRegisterCredentials extends UserStructure {
   passwordConfirmation: string;
 }
