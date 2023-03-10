@@ -20,11 +20,11 @@ beforeEach(() => jest.clearAllMocks());
 
 describe("Given a loginUser controller", () => {
   const mockUser: UserCredentials = {
-    username: "Kent",
+    email: "kent@gmail.com",
     password: "C.Dots",
   };
 
-  describe("When it receives a request with a username 'Kent' and password 'C.Dots' and the user is not registered in the database", () => {
+  describe("When it receives a request with a email 'kent@gmail.com' and password 'C.Dots' and the user is not registered in the database", () => {
     test("Then it should call its next method with a status code 401 and the message 'Wrong credentials'", async () => {
       const expectedError = new CustomError(
         "Unauthorized: User or password not found.",
@@ -43,7 +43,7 @@ describe("Given a loginUser controller", () => {
     });
   });
 
-  describe("When it receives a request with a username `Kent` and a password `C.Dots` and the user is registered in the database", () => {
+  describe("When it receives a request with a email `kent@gmail.com` and a password `C.Dots` and the user is registered in the database", () => {
     test("Then it should call its status method with status code 200 and its json method with a token", async () => {
       const expectedStatusCode = 200;
       req.body = mockUser;
@@ -66,7 +66,7 @@ describe("Given a loginUser controller", () => {
     });
   });
 
-  describe("When it receives a request with a username `Kent` and password `C.Dots` and the user is registered in the database but the passwords don't match", () => {
+  describe("When it receives a request with a email `kent@gmail.com` and password `C.Dots` and the user is registered in the database but the passwords don't match", () => {
     test("Then it should call its next method with a status 401 and the message `Wrong credentials`", async () => {
       const expectedError = new CustomError(
         "Unauthorized: User or password not found.",

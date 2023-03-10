@@ -28,5 +28,6 @@ module.exports = {
   rules: {
     "new-cap": ["error", { capIsNewExceptions: ["Router"] }],
     "no-implicit-coercion": [2, { number: false }],
+    "@typescript-eslint/naming-convention": "off",
   },
 };
