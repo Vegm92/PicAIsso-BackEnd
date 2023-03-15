@@ -33,5 +33,12 @@ const errors = {
   otherErrors: {
     eaddrinuse: "EADDRINUSE",
   },
+  authenticationError: {
+    statusCode: 401,
+    missingHeader: "Authorization header missing",
+    missingBearer: "Missing bearer in Authorization header",
+    invalidToken: "Invalid Token",
+    missingToken: "Missing Token",
+  },
 };
 export default errors;
