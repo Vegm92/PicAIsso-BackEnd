@@ -1,8 +1,9 @@
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
 import { type CustomRequest } from "../../../types.js";
+import errors from "../../../constants/errors.js";
 import { Image } from "../../../database/models/ImagesModel/Images.js";
-import errors from "../../../constants/errors";
+
 export const getAllImages = async (
   req: Request,
   res: Response,

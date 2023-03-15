@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import { generalError } from "./middlewares/generalError/generalError.js";
 import { notFoundError } from "./middlewares/notFoundError/notFoundError.js";
+import imagesRouter from "./routers/imagesRouter/imagesRouter.js";
 
 import usersRouter from "./routers/usersRouters/usersRouters.js";
 
@@ -26,6 +27,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/users", usersRouter);
+app.use("/images", imagesRouter);
 
 app.use(notFoundError);
 app.use(generalError);
