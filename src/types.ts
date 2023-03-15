@@ -1,3 +1,6 @@
+import { type JwtPayload } from "jsonwebtoken";
+import { type Request } from "express";
+
 export interface UserStructure {
   username: string;
   password: string;
@@ -9,11 +12,21 @@ export interface UserRegisterCredentials extends UserStructure {
   passwordConfirmation: string;
 }
 
-export interface Image {
-  id: number;
+export interface ImageData {
+  id: string;
   tittle: string;
   description: string;
-  source: string;
+  image: string;
   prompt: string;
   category: string;
+}
+
+export type ImagesData = ImageData[];
+
+export interface CustomJwtPayload extends JwtPayload {
+  sub: string;
+}
+
+export interface CustomRequest extends Request {
+  promptedBy: string;
 }

@@ -6,8 +6,8 @@ import {
   type Response,
 } from "express-serve-static-core";
 import { type UserCredentials } from "../../../types.js";
-import { type CustomJwtPayload } from "../types.js";
-import User from "../../../database/models/User.js";
+import { type CustomJwtPayloadUsername } from "../types.js";
+import User from "../../../database/models/User/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import errors from "../../../constants/errors.js";
 
@@ -46,7 +46,7 @@ export const loginUser = async (
       throw error;
     }
 
-    const jwtPayload: CustomJwtPayload = {
+    const jwtPayload: CustomJwtPayloadUsername = {
       sub: user?._id.toString(),
       username: user.username,
     };
