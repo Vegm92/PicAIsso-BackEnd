@@ -1,4 +1,5 @@
 import { type Request, type Response } from "express";
+import errors from "../../../constants/errors";
 import CustomError from "../../../CustomError/CustomError";
 import { Image } from "../../../database/models/ImagesModel/Images";
 import {
@@ -6,7 +7,7 @@ import {
   type ImageData,
   type CustomRequest,
 } from "../../../types";
-import { getAllImages, getUserImages } from "./imagesControllers";
+import { deleteImages, getAllImages, getUserImages } from "./imagesControllers";
 
 const mockImage: ImageData = {
   tittle: "qwert",
@@ -30,6 +31,9 @@ const mockImagesList: ImagesData = [mockImage, mockImageVariation];
 
 beforeEach(() => jest.restoreAllMocks());
 
+const expectedStatusCode = 200;
+const next = jest.fn();
+
 describe("Given getImages controller", () => {
   describe("When it receives a response", () => {
     test("Then it should call its status method with 200", async () => {
@@ -39,7 +43,6 @@ describe("Given getImages controller", () => {
       };
       const req: Partial<Request> = {};
       const next = jest.fn();
-      const expectedStatusCode = 200;
 
       Image.find = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(mockImagesList),
@@ -56,7 +59,6 @@ describe("Given getImages controller", () => {
         json: jest.fn().mockResolvedValue(mockImagesList),
       };
       const req: Partial<Request> = {};
-      const next = jest.fn();
 
       Image.find = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(mockImagesList),
@@ -75,7 +77,6 @@ describe("Given getImages controller", () => {
         json: jest.fn().mockResolvedValue({}),
       };
       const req: Partial<Request> = {};
-      const next = jest.fn();
 
       const expectedError = new CustomError(
         "Bad Request: Request has wrong format.",
@@ -102,8 +103,6 @@ describe("Given the getUserImages controller", () => {
         json: jest.fn().mockResolvedValue(mockImagesList),
       };
       const req: Partial<Request> = {};
-      const next = jest.fn();
-      const expectedStatusCode = 200;
       req.body = { postedBy: "213i21309213891jkdk" };
 
       Image.find = jest.fn().mockImplementationOnce(() => ({
@@ -121,7 +120,6 @@ describe("Given the getUserImages controller", () => {
         json: jest.fn().mockResolvedValue(mockImagesList),
       };
       const req: Partial<Request> = {};
-      const next = jest.fn();
       req.params = { postedBy: "213i21309213891jkdk" };
 
       Image.find = jest.fn().mockImplementationOnce(() => ({
@@ -154,6 +152,54 @@ describe("Given the getUserImages controller", () => {
       Image.find = jest.fn().mockReturnValue(undefined);
 
       await getUserImages(req as CustomRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given the deleteImages controller", () => {
+  describe("When it receives a response", () => {
+    test("Then it should call its status method with code 200", async () => {
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(mockImage.id),
+      };
+
+      const req: Partial<CustomRequest> = {
+        params: { id: `${mockImage.id}` },
+      };
+
+      Image.findByIdAndDelete = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue(mockImage),
+      }));
+
+      await deleteImages(req as CustomRequest, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+  });
+
+  describe("When it receives a bad request", () => {
+    test("Then it should call its next function", async () => {
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({}),
+      };
+
+      const req: Partial<CustomRequest> = {};
+
+      req.params = {};
+
+      const expectedError = new CustomError(
+        errors.serverError.message,
+        errors.serverError.statusCode,
+        errors.serverError.deleteImagesError
+      );
+
+      Image.findByIdAndDelete = jest.fn().mockReturnValue(undefined);
+
+      await deleteImages(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
