@@ -194,7 +194,7 @@ describe("Given the deleteImages controller", () => {
       const expectedError = new CustomError(
         errors.serverError.message,
         errors.serverError.statusCode,
-        errors.serverError.deleteImagesError
+        errors.serverError.databaseError
       );
 
       Image.findByIdAndDelete = jest.fn().mockReturnValue(undefined);

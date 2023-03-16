@@ -1,8 +1,11 @@
+import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
 import { type CustomRequest } from "../../../types.js";
 import errors from "../../../constants/errors.js";
 import { Image } from "../../../database/models/ImagesModel/Images.js";
+
+export const debug = createDebug("picaisso:server:controller:images");
 
 export const getAllImages = async (
   req: Request,
@@ -13,7 +16,9 @@ export const getAllImages = async (
     const images = await Image.find().exec();
 
     res.status(200).json({ images });
+    debug("Succeded getting images");
   } catch (error) {
+    debug(error.message);
     const customError = new CustomError(
       errors.badRequest.message,
       errors.badRequest.statusCode,
@@ -33,7 +38,10 @@ export const getUserImages = async (
     const images = await Image.find({ promptedBy: req.promptedBy }).exec();
 
     res.status(200).json({ images });
+    debug("Succeded getting images");
   } catch (error) {
+    debug(error.message);
+
     const customError = new CustomError(
       errors.badRequest.message,
       errors.badRequest.statusCode,
