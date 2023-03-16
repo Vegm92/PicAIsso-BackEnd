@@ -27,7 +27,8 @@ const errors = {
     statusCode: 500,
     publicMessage: "Internal Server Error: Something went wrong",
     startingServerError: "Error on starting the server",
-    imagesError: "Internal Server Error: Couldn't retrieve images.",
+    getImagesError: "Internal Server Error: Couldn't retrieve images.",
+    deleteImagesError: "Internal Server Error: Couldn't delete the image.",
     databaseError: "Error while connecting to data base",
   },
   otherErrors: {

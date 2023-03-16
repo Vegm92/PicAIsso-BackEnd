@@ -5,18 +5,27 @@ const Imageschema = new Schema({
     type: String,
     required: true,
   },
+
   category: {
     type: String,
     required: true,
   },
+
+  prompt: {
+    type: String,
+    required: true,
+  },
+
   description: {
     type: String,
     required: true,
   },
+
   image: {
     type: String,
     required: true,
   },
+
   promptedBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
