@@ -10,8 +10,11 @@ import { type CustomJwtPayloadUsername } from "../types.js";
 import User from "../../../database/models/User/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import errors from "../../../constants/errors.js";
+import createDebug from "debug";
 
 const hashingPasswordLength = 10;
+
+const debug = createDebug("picaisso:server:controllers:users");
 
 export const loginUser = async (
   req: Request<
@@ -56,7 +59,10 @@ export const loginUser = async (
     });
 
     res.status(200).json({ token });
+    debug("Login successfull");
   } catch (error) {
+    debug(error.message);
+
     next(error);
   }
 };

@@ -20,8 +20,6 @@ const options: cors.CorsOptions = {
   origin: allowedOrigins,
 };
 
-export default options;
-
 app.use(cors(options));
 app.use(morgan("dev"));
 app.use(express.json());

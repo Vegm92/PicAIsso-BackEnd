@@ -1,7 +1,9 @@
-import debug from "debug";
+import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import { ValidationError } from "express-validation";
 import type CustomError from "../../../CustomError/CustomError.js";
+
+const debug = createDebug("picaisso:server:general-error");
 
 export const generalError = (
   error: CustomError,
