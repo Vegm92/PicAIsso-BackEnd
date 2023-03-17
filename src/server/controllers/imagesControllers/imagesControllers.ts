@@ -52,6 +52,30 @@ export const getUserImages = async (
   }
 };
 
+export const getImageById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { idImage } = req.params;
+
+  try {
+    const image = await Image.findById(idImage).exec();
+
+    res.status(200).json({ image });
+  } catch (error) {
+    debug(error.message);
+
+    const customError = new CustomError(
+      error.message as string,
+      errors.serverError.statusCode,
+      "Couldn't retrieve an image."
+    );
+
+    next(customError);
+  }
+};
+
 export const deleteImages = async (
   req: CustomRequest,
   res: Response,
