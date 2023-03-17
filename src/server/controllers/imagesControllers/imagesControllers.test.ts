@@ -7,7 +7,12 @@ import {
   type ImageData,
   type CustomRequest,
 } from "../../../types";
-import { deleteImages, getAllImages, getUserImages } from "./imagesControllers";
+import {
+  deleteImages,
+  getAllImages,
+  getImageById,
+  getUserImages,
+} from "./imagesControllers";
 
 const mockImage: ImageData = {
   tittle: "qwert",
@@ -91,6 +96,75 @@ describe("Given getImages controller", () => {
       await getAllImages(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a getImageById controller", () => {
+  describe("When it receives a response", () => {
+    test("Then it should call its status method with 200", async () => {
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(mockImage),
+      };
+
+      const req: Partial<Request> = {
+        params: { id: `${mockImage.id}` },
+      };
+      const next = jest.fn();
+      const expectedStatusCode = 200;
+
+      Image.findById = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue(mockImage),
+      }));
+
+      await getImageById(req as Request, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+    });
+
+    test("Then it should call its json method", async () => {
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(mockImage),
+      };
+      const req: Partial<Request> = {
+        params: { id: `${mockImage.id}` },
+      };
+      const next = jest.fn();
+
+      Image.findById = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue(mockImage),
+      }));
+
+      await getImageById(req as Request, res as Response, next);
+
+      expect(res.json).toHaveBeenCalledWith({ image: mockImage });
+    });
+  });
+
+  describe("When it receives a bad request", () => {
+    test("Then it should call its next function", async () => {
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({}),
+      };
+
+      const req: Partial<CustomRequest> = {};
+
+      req.params = {};
+
+      const expectedError = new CustomError(
+        errors.serverError.message,
+        errors.serverError.statusCode,
+        errors.serverError.databaseError
+      );
+
+      Image.findById = jest.fn().mockReturnValue(undefined);
+
+      await getImageById(req as CustomRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
