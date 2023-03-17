@@ -27,13 +27,14 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
+const okStatus = 200;
+
 describe("Given a GET '/images' endpoint", () => {
   describe("When it receives a request", () => {
     test("Then it should respond with status 200", async () => {
-      const expectedStatus = 200;
       const imagesUrl = "/images";
 
-      await request(app).get(imagesUrl).expect(expectedStatus);
+      await request(app).get(imagesUrl).expect(okStatus);
     });
   });
 });

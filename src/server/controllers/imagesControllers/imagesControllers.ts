@@ -72,7 +72,7 @@ export const getImageById = async (
       "Couldn't retrieve an image."
     );
 
-    next(CustomError);
+    next(customError);
   }
 };
 
