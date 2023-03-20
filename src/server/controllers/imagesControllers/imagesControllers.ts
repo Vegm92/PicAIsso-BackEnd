@@ -108,7 +108,7 @@ export const createImage = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { title, subject, category, description, image, promptedBy } =
+  const { title, subject, category, description, image } =
     req.body as ImageStructure;
   const { userId } = req;
 

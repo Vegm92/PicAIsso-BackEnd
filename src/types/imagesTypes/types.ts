@@ -3,7 +3,8 @@ import { type imageSchema } from "../../database/models/ImagesModel/Images";
 
 export interface ImageDataStructure {
   id: string;
-  tittle: string;
+  title: string;
+  subject: string;
   description: string;
   image: string;
   prompt: string;

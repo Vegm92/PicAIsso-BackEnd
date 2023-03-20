@@ -5,7 +5,7 @@ import {
   type Request,
   type Response,
 } from "express-serve-static-core";
-import { type UserCredentials } from "../../../types.js";
+import { type UserCredentials } from "../../../types/userTypes/types.js";
 import { type CustomJwtPayloadUsername } from "../types.js";
 import User from "../../../database/models/User/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
