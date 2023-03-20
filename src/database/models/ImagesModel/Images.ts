@@ -6,17 +6,16 @@ export const imageSchema = new Schema({
     required: true,
   },
 
-  subject: {
-    type: String,
-    required: true,
-  },
-
   category: {
     type: String,
     required: true,
   },
 
   description: {
+    type: String,
+  },
+
+  userPrompt: {
     type: String,
     required: true,
   },

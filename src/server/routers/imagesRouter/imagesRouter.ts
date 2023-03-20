@@ -3,7 +3,6 @@ import { validate } from "express-validation";
 import multer from "multer";
 import path from "path";
 import crypto from "crypto";
-import { imageSchema } from "../../../database/models/ImagesModel/Images.js";
 import {
   createImage,
   deleteImages,
@@ -15,21 +14,30 @@ import auth from "../../middlewares/auth/auth.js";
 import backupImage from "../../middlewares/supaBase/supaBase.js";
 import imagesSchemaJoi from "../../schemas/imagesSchema.js";
 
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename(req, file, callBack) {
-    const suffix = crypto.randomUUID();
+const multerConfig = {
+  storage: multer.diskStorage({
+    destination: "uploads",
 
-    const extension = path.extname(file.originalname);
-    const basename = path.basename(file.originalname, extension);
+    filename(req, file, callBack) {
+      const suffix = crypto.randomUUID();
 
-    const filename = `${basename}-${suffix}${extension}`;
+      const extension = path.extname(file.originalname);
+      const basename = path.basename(file.originalname, extension);
 
-    callBack(null, filename);
+      const filename = `${basename}-${suffix}${extension}`;
+
+      callBack(null, filename);
+    },
+  }),
+  limits: {
+    fileSize: 800000,
   },
-});
+};
 
-const upload = multer({ storage, limits: { fileSize: 10000000 } });
+const upload = multer({
+  ...multerConfig,
+  limits: { fileSize: 8000000 },
+});
 
 const getImagesRoute = "/";
 const getUserCollectionRoute = "/my-collection";

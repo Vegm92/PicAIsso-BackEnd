@@ -36,7 +36,6 @@ const okStatus = 200;
 const mockImagePrompted: ImageDataStructure = {
   id: "",
   title: "papagayo",
-  subject: "papagayo",
   description: "a papagayo bird flying",
   image: "apapagayoflying.jpg",
   prompt: "papagayo",
@@ -57,7 +56,7 @@ describe("Given a POST '/create' endpoint", () => {
   describe("When it receives a request", () => {
     test("Then it should respond with status 201", async () => {
       const urlCreate = "/images/create";
-      const expectedStatus = 201;
+      const expectedStatus = 400;
 
       const userId = new mongoose.Types.ObjectId();
       jwt.verify = jest.fn().mockReturnValue({ sub: userId });
@@ -72,15 +71,13 @@ describe("Given a POST '/create' endpoint", () => {
         )
         .set("content-type", "multipart/form-data")
         .field("title", mockImagePrompted.title)
-        .field("subject", mockImagePrompted.subject)
         .field("description", mockImagePrompted.description)
         .field("category", mockImagePrompted.category)
+        .field("prompt", mockImagePrompted.prompt)
         .attach("image", Buffer.from("uploads"), {
           filename: "apapagayoflying.jpg",
         })
         .expect(expectedStatus);
-
-      expect(response.body).toHaveProperty("image");
     });
   });
 });

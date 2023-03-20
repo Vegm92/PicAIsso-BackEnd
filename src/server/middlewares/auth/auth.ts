@@ -1,3 +1,4 @@
+import "../../../loadEnvironment.js";
 import { type NextFunction, type Response } from "express";
 import errors from "../../../constants/errors.js";
 import {

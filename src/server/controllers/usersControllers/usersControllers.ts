@@ -1,3 +1,4 @@
+import "../../../loadEnvironment.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {
@@ -11,7 +12,6 @@ import User from "../../../database/models/User/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import errors from "../../../constants/errors.js";
 import createDebug from "debug";
-
 const hashingPasswordLength = 10;
 
 const debug = createDebug("picaisso:server:controllers:users");

@@ -16,7 +16,6 @@ import {
 } from "./imagesControllers";
 
 const mockImage: ImageDataStructure = {
-  subject: "",
   title: "qwert",
   category: "",
   description: "",
@@ -26,7 +25,6 @@ const mockImage: ImageDataStructure = {
 };
 
 const mockImageVariation: ImageDataStructure = {
-  subject: "",
   title: "",
   category: "",
   description: "",
