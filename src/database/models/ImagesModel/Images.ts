@@ -1,17 +1,17 @@
 import { model, Schema } from "mongoose";
 
-const Imageschema = new Schema({
+export const imageSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
 
-  category: {
+  subject: {
     type: String,
     required: true,
   },
 
-  prompt: {
+  category: {
     type: String,
     required: true,
   },
@@ -29,4 +29,4 @@ const Imageschema = new Schema({
   promptedBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-export const Image = model("Image", Imageschema, "images");
+export const Image = model("Image", imageSchema, "images");

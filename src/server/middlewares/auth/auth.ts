@@ -1,6 +1,9 @@
 import { type NextFunction, type Response } from "express";
 import errors from "../../../constants/errors.js";
-import { type CustomJwtPayload, type CustomRequest } from "../../../types.js";
+import {
+  type CustomJwtPayload,
+  type CustomRequest,
+} from "../../../types/userTypes/types.js";
 import jwt from "jsonwebtoken";
 import CustomError from "../../../CustomError/CustomError.js";
 
@@ -23,7 +26,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
       process.env.JWT_SECRET!
     ) as CustomJwtPayload;
 
-    req.promptedBy = promptedBy;
+    req.userId = promptedBy;
 
     next();
   } catch (error: unknown) {
