@@ -1,9 +1,11 @@
 import createDebug from "debug";
+import mongoose from "mongoose";
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../../CustomError/CustomError.js";
-import { type CustomRequest } from "../../../types.js";
 import errors from "../../../constants/errors.js";
+import CustomError from "../../../CustomError/CustomError.js";
+import { type CustomRequest } from "../../../types/userTypes/types.js";
 import { Image } from "../../../database/models/ImagesModel/Images.js";
+import { type ImageStructure } from "../../../types/imagesTypes/types.js";
 
 export const debug = createDebug("picaisso:server:controller:images");
 
@@ -35,7 +37,7 @@ export const getUserImages = async (
   next: NextFunction
 ) => {
   try {
-    const images = await Image.find({ promptedBy: req.promptedBy }).exec();
+    const images = await Image.find({ promptedBy: req.userId }).exec();
 
     res.status(200).json({ images });
     debug("Succeded getting images");
@@ -86,7 +88,7 @@ export const deleteImages = async (
   try {
     const image = await Image.findByIdAndDelete({
       _id: idImage,
-      promptedBy: req.promptedBy,
+      promptedBy: req.userId,
     }).exec();
 
     res.status(200).json({ image });
@@ -95,6 +97,39 @@ export const deleteImages = async (
       errors.serverError.message,
       errors.serverError.statusCode,
       errors.serverError.deleteImagesError
+    );
+
+    next(customError);
+  }
+};
+
+export const createImage = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { title, category, description, image, userPrompt } =
+    req.body as ImageStructure;
+  const { userId } = req;
+
+  try {
+    const newImage: ImageStructure = {
+      title,
+      category,
+      description,
+      image,
+      userPrompt,
+      promptedBy: new mongoose.Types.ObjectId(userId),
+    };
+
+    const createdImage = await Image.create(newImage);
+
+    res.status(201).json({ image: createdImage });
+  } catch (error) {
+    const customError = new CustomError(
+      "Couldn't create the image",
+      400,
+      "Couldn't create the image"
     );
 
     next(customError);

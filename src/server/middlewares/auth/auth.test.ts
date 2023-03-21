@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import auth from "./auth";
 import jwt from "jsonwebtoken";
 import CustomError from "../../../CustomError/CustomError";
-import { type CustomRequest } from "../../../types";
+import { type CustomRequest } from "../../../types/userTypes/types";
 import errors from "../../../constants/errors";
 
 const req: Partial<Request> = {};
@@ -65,7 +65,7 @@ describe("Given an auth middleware", () => {
       auth(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalled();
-      expect(req).toHaveProperty("promptedBy", promptedBy);
+      expect(req).toHaveProperty("userId", promptedBy);
     });
   });
 

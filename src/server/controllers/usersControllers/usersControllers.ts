@@ -1,3 +1,4 @@
+import "../../../loadEnvironment.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {
@@ -5,13 +6,12 @@ import {
   type Request,
   type Response,
 } from "express-serve-static-core";
-import { type UserCredentials } from "../../../types.js";
+import { type UserCredentials } from "../../../types/userTypes/types.js";
 import { type CustomJwtPayloadUsername } from "../types.js";
 import User from "../../../database/models/User/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import errors from "../../../constants/errors.js";
 import createDebug from "debug";
-
 const hashingPasswordLength = 10;
 
 const debug = createDebug("picaisso:server:controllers:users");

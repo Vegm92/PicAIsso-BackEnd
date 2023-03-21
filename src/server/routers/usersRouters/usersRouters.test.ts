@@ -5,7 +5,10 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { app } from "../..";
 import User from "../../../database/models/User/User.js";
-import { type UserStructure, type UserCredentials } from "../../../types.js";
+import {
+  type UserStructure,
+  type UserCredentials,
+} from "../../../types/userTypes/types.js";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import connectDataBase from "../../../database/connectDataBase.js";
 
