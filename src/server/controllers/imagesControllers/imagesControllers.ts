@@ -108,7 +108,7 @@ export const createImage = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { title, category, description, image, userPrompt } =
+  const { title, category, description, userPrompt, image } =
     req.body as ImageStructure;
   const { userId } = req;
 
@@ -117,8 +117,8 @@ export const createImage = async (
       title,
       category,
       description,
-      image,
       userPrompt,
+      image,
       promptedBy: new mongoose.Types.ObjectId(userId),
     };
 

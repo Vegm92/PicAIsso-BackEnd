@@ -3,7 +3,7 @@ import { type NextFunction, type Response } from "express";
 import fs from "fs/promises";
 import { Image } from "../../../database/models/ImagesModel/Images";
 import { type CustomRequest } from "../../../types/userTypes/types";
-import backupImage, { supabase } from "./supaBase";
+import backupImage, { supabase } from "./backupImage";
 
 afterEach(async () => {
   jest.clearAllMocks();
