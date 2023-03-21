@@ -5,7 +5,7 @@ const imagesSchemaJoi = {
     title: Joi.string().required(),
     category: Joi.string().required(),
     description: Joi.string().max(500).required(),
-    prompt: Joi.string().required(),
+    userPrompt: Joi.string().required(),
   }),
 };
 

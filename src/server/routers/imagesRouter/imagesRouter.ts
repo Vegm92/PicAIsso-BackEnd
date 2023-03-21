@@ -11,8 +11,8 @@ import {
   getUserImages,
 } from "../../controllers/imagesControllers/imagesControllers.js";
 import auth from "../../middlewares/auth/auth.js";
-import backupImage from "../../middlewares/supaBase/supaBase.js";
 import imagesSchemaJoi from "../../schemas/imagesSchema.js";
+import backupImage from "../../middlewares/supaBase/backupImage.js";
 
 const multerConfig = {
   storage: multer.diskStorage({
@@ -29,9 +29,6 @@ const multerConfig = {
       callBack(null, filename);
     },
   }),
-  limits: {
-    fileSize: 800000,
-  },
 };
 
 const upload = multer({
