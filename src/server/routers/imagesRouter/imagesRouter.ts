@@ -20,7 +20,6 @@ const multerConfig = {
 
     filename(req, file, callBack) {
       const suffix = crypto.randomUUID();
-
       const extension = path.extname(file.originalname);
       const basename = path.basename(file.originalname, extension);
 
