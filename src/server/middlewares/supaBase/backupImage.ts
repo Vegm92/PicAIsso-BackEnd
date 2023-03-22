@@ -10,6 +10,8 @@ export const supabase = createClient(
   process.env.SUPABASE_API_KEY!
 );
 
+const bucket = supabase.storage.from("picaisso-bucket");
+
 const backupImage = async (
   req: CustomRequest,
   res: Response,
@@ -22,11 +24,11 @@ const backupImage = async (
 
     const image = await fs.readFile(imagePath);
 
-    await supabase.storage.from("images").upload(imageName!, image);
+    await bucket.upload(imageName!, image);
 
     const {
       data: { publicUrl },
-    } = supabase.storage.from("images").getPublicUrl(imageName!);
+    } = bucket.getPublicUrl(imageName!);
 
     req.body.image = publicUrl;
     req.body.backupImage = imagePath;
